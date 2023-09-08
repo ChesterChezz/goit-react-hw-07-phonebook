@@ -8,7 +8,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const [contactName, setcontactName] = useState('');
   const [number, setNumber] = useState('');
-
+  const contacts = useSelector(state => state.contacts.items);
   useEffect(() => {
     dispatch(getContactsThunk());
   }, [dispatch]);
@@ -19,7 +19,6 @@ const Form = () => {
   };
 
   const handleChange = evt => {
-    // console.log(evt)
     const { name, value } = evt.target;
     switch (name) {
       case 'name':
@@ -40,7 +39,6 @@ const Form = () => {
       name: name.value,
       phone: number.value,
     };
-    console.log(contact);
     e.preventDefault();
     if (
       contacts.some(
@@ -56,26 +54,6 @@ const Form = () => {
       reset();
     }
   };
-
-  const contacts = useSelector(state => state.contacts.items);
-  // const testfun = () => {
-  //   const apiUrl = 'https://64fadae7cb9c00518f7a48a0.mockapi.io/v1/contacts';
-
-  //   fetch(apiUrl)
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error(`Network response was not ok: ${response.status}`);
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       console.log(data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Fetch error:', error);
-  //     });
-  // };
-  // testfun();
 
   return (
     <MyStyles.Form onSubmit={handleSubmit}>

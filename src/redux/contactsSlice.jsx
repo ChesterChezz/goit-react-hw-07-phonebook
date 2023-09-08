@@ -5,6 +5,24 @@ import {
   getContactsThunk,
 } from './contactsThunk';
 
+const contactkInitialState = {
+  items: [],
+};
+
+const contactSlice = createSlice({
+  name: 'contacts',
+  initialState: contactkInitialState,
+  reducers: {
+    addContact(state, action) {
+      state.items.unshift(action.payload);
+    },
+    deleteContact(state, action) {
+      state.items = state.items.filter(
+        contact => contact.id !== action.payload
+      );
+    },
+  },
+});
 const handlePaending = state => {
   state.isLoading = true;
 };
@@ -42,3 +60,5 @@ const sliceContact = createSlice({
 
 export const { addContactsActions, delContactsActions } = sliceContact.actions;
 export const contactsReducer = sliceContact.reducer;
+export const getContacts = state => state.contacts.items;
+export const { deleteContact } = contactSlice.actions;
